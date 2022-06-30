@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-06-22 17:38+0500\n"
+"POT-Creation-Date: 2022-06-30 12:26+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,22 +19,43 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
 "%100>=11 && n%100<=14)? 2 : 3);\n"
-#: task_manager/templates/index.html:9
+
+#: templates/index.html:9
 msgid "Task manager app"
 msgstr "Менеджер задач"
 
-#: task_manager/templates/index.html:15
+#: templates/index.html:15
 msgid "Task manager"
 msgstr "Менеджер задач"
 
-#: task_manager/templates/index.html:24
+#: templates/index.html:24
 msgid "Users"
 msgstr "Пользователи"
 
-#: task_manager/templates/index.html:29
+#: templates/index.html:29
 msgid "Login"
 msgstr "Вход"
 
-#: task_manager/templates/index.html:32
+#: templates/index.html:32
 msgid "Registration"
 msgstr "Регистрация"
+
+#: templates/users_list.html:9
+msgid "User name"
+msgstr "Имя пользователя"
+
+#: templates/users_list.html:10
+msgid "Full name"
+msgstr "Полное имя"
+
+#: templates/users_list.html:11
+msgid "Creation date"
+msgstr "Дата создания"
+
+#: templates/users_list.html:24
+msgid "Update"
+msgstr "Изменить"
+
+#: templates/users_list.html:26
+msgid "Delete"
+msgstr "Удалить"
