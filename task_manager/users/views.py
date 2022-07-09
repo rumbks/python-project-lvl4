@@ -1,4 +1,4 @@
-from django.contrib.auth import get_user_model
+from django.contrib.auth.views import get_user_model
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 
@@ -14,7 +14,7 @@ class CreateUser(CreateView):
     model = get_user_model()
     template_name = 'user_create.html'
     form_class = UserForm
-    success_url = reverse_lazy('main')
+    success_url = reverse_lazy('login')
 
 
 class UpdateUser(UpdateView):

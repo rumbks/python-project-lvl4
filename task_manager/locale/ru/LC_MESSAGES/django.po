@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-07-09 11:19+0000\n"
+"POT-Creation-Date: 2022-07-09 12:34+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -32,11 +32,15 @@ msgstr "Менеджер задач"
 msgid "Users"
 msgstr "Пользователи"
 
-#: templates/index.html:29
+#: templates/index.html:30
+msgid "Logout"
+msgstr "Выход"
+
+#: templates/index.html:34 templates/login.html:6 templates/login.html:8
 msgid "Login"
 msgstr "Вход"
 
-#: templates/index.html:32 templates/user_create.html:6
+#: templates/index.html:37 templates/user_create.html:6
 msgid "Registration"
 msgstr "Регистрация"
 
