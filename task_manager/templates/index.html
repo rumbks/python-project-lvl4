@@ -29,13 +29,18 @@
                     <a class="nav-link" href="#">{% translate "Login" %}</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">{% translate "Registration" %}</a>
+                    <a class="nav-link" href="{% url "users:create" %}">{% translate "Registration" %}</a>
                 </li>
             </ul>
         </div>
     </nav>
-    {% block body %}
-    {% endblock %}
-
+    <div class="container wrapper flex-grow-1">
+        <h1 class="my-4">
+            {% block header %}
+            {% endblock %}
+        </h1>
+        {% block body %}
+        {% endblock %}
+    </div>
 </body>
 </html>

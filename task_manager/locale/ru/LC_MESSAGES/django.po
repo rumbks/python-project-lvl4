@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-06-30 12:26+0000\n"
+"POT-Creation-Date: 2022-07-09 09:09+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -28,7 +28,7 @@ msgstr "Менеджер задач"
 msgid "Task manager"
 msgstr "Менеджер задач"
 
-#: templates/index.html:24
+#: templates/index.html:24 templates/users_list.html:5
 msgid "Users"
 msgstr "Пользователи"
 
@@ -36,26 +36,69 @@ msgstr "Пользователи"
 msgid "Login"
 msgstr "Вход"
 
-#: templates/index.html:32
+#: templates/index.html:32 templates/user_create.html:6
 msgid "Registration"
 msgstr "Регистрация"
 
-#: templates/users_list.html:9
+#: templates/user_create.html:8
+msgid "Register"
+msgstr "Зарегистрировать"
+
+#: templates/users_list.html:12
 msgid "User name"
 msgstr "Имя пользователя"
 
-#: templates/users_list.html:10
+#: templates/users_list.html:13
 msgid "Full name"
 msgstr "Полное имя"
 
-#: templates/users_list.html:11
+#: templates/users_list.html:14
 msgid "Creation date"
 msgstr "Дата создания"
 
-#: templates/users_list.html:24
+#: templates/users_list.html:26
 msgid "Update"
 msgstr "Изменить"
 
-#: templates/users_list.html:26
+#: templates/users_list.html:28
 msgid "Delete"
 msgstr "Удалить"
+
+#: users/forms.py:9
+msgid "Two passwords should match."
+msgstr "Введенные пароли не совпадают."
+
+#: users/forms.py:12
+msgid "Password"
+msgstr "Пароль"
+
+#: users/forms.py:14
+msgid "Your password should be at least 3 symbols long."
+msgstr "Ваш пароль должен содержать как минимум 3 символа."
+
+#: users/forms.py:17
+msgid "Confirm password"
+msgstr "Подтверждение пароля"
+
+#: users/forms.py:19
+msgid "Re-enter your password again, please."
+msgstr "Для подтверждения введите, пожалуйста, пароль ещё раз."
+
+#: users/forms.py:35
+msgid "First name"
+msgstr "Имя"
+
+#: users/forms.py:36
+msgid "Last name"
+msgstr "Фамилия"
+
+#: users/forms.py:37
+msgid "Username"
+msgstr "Имя пользователя"
+
+#: users/forms.py:41
+msgid ""
+"Required. Char limit 150. Allowed symbols are letters, digits and @/./+/-/_."
+msgstr ""
+"Обязательное поле. Не более 150 символов. Только буквы, цифры и символы @/./"
+"+/-/_."
