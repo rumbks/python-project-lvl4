@@ -1,0 +1,13 @@
+{% extends 'index.html' %}
+{% load i18n %}
+{% load bootstrap4 %}
+
+{% block body %}
+<p>{% block delete_message %}{% endblock %}</p>
+<form method="post">
+    {% csrf_token %}
+    {% buttons %}
+        <input class="btn btn-danger" type="submit" value="{% block button_value %}{% endblock %}">
+    {% endbuttons %}
+</form>
+{% endblock %}
