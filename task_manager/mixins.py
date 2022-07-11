@@ -19,7 +19,7 @@ class LoginRequiredMixin(AccessMixin):
 
 
 class OwnershipRequiredMixin:
-    """Verify that the current user is authenticated."""
+    """Verify that the current user is owner of affected object."""
 
     model_user_id_field_name = 'user_id'
     failure_message = ""
