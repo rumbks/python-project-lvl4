@@ -10,12 +10,12 @@ from task_manager.users.forms import UserForm
 
 class ListUsers(ListView):
     model = get_user_model()
-    template_name = 'users_list.html'
+    template_name = 'users/list.html'
 
 
 class CreateUser(SuccessMessageMixin, CreateView):
     model = get_user_model()
-    template_name = 'user_create.html'
+    template_name = 'users/create.html'
     form_class = UserForm
     success_url = reverse_lazy('login')
     success_message = _("User was successfully registered")
@@ -23,7 +23,7 @@ class CreateUser(SuccessMessageMixin, CreateView):
 
 class UpdateUser(LoginRequiredMixin, OwnershipRequiredMixin, SuccessMessageMixin, UpdateView):
     model = get_user_model()
-    template_name = 'user_update.html'
+    template_name = 'users/update.html'
     form_class = UserForm
     success_url = reverse_lazy('users:list')
     success_message = _("User was successfully updated")
@@ -34,7 +34,7 @@ class UpdateUser(LoginRequiredMixin, OwnershipRequiredMixin, SuccessMessageMixin
 
 class DeleteUser(LoginRequiredMixin, OwnershipRequiredMixin, SuccessMessageMixin, DeleteView):
     model = get_user_model()
-    template_name = 'user_delete.html'
+    template_name = 'users/delete.html'
     success_url = reverse_lazy('users:list')
     success_message = _("User was successfully deleted")
     failure_message = _("You have no permissions to update other user")

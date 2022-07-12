@@ -1,0 +1,11 @@
+{% extends 'delete_form.html' %}
+{% load i18n %}
+{% load bootstrap4 %}
+
+{% block header %}
+{% translate "Delete status" %}
+{% endblock %}
+{% block button_value %}{% translate "Yes, delete" %}{% endblock %}
+{% block delete_message %}
+{% translate "Are you sure, that you want to delete" %} {{ object.name }}?
+{% endblock %}
