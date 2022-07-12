@@ -9,7 +9,7 @@ from task_manager.statuses.forms import StatusForm
 from task_manager.statuses.models import Status
 
 
-class ListStatuses(ListView):
+class ListStatuses(LoginRequiredMixin, ListView):
     model = Status
     template_name = 'statuses/list.html'
 
