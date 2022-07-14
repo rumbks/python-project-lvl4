@@ -16,6 +16,11 @@ def model():
     return Status
 
 
+@pytest.fixture
+def prepare_object():
+    return None
+
+
 @pytest.mark.django_db
 def test_create(client, model, input_data):
     client.post(CREATE_URL, input_data)

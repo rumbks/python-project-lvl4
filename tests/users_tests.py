@@ -15,8 +15,11 @@ def model():
     return get_user_model()
 
 
-def prepare_object(object_):
-    object_.set_password(PASSWORD)
+@pytest.fixture
+def prepare_object():
+    def prepare(user):
+        user.set_password(PASSWORD)
+    return prepare
 
 
 @pytest.mark.django_db
