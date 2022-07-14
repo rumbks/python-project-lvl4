@@ -63,9 +63,6 @@ class DeleteTask(
     failure_message = _("Task can be deleted by it's author only")
 
 
-# Задачу может удалить только её автор
-
-
 class TaskDetails(LoginRequiredMixin, DetailView):
     model = Task
     template_name = 'tasks/details.html'
