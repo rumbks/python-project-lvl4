@@ -4,6 +4,7 @@ from django.contrib import messages
 from django.utils.translation import gettext_lazy as _
 from django.http import HttpRequest
 from django.shortcuts import redirect
+from django.db.models import deletion
 
 
 class LoginRequiredMixin(AccessMixin):
@@ -33,6 +34,26 @@ class OwnershipRequiredMixin:
             messages.error(request, self.failure_message)
         failure_url = self.get_failure_url()
         return redirect(failure_url)
+
+    def get_failure_url(self):
+        if self.failure_url:
+            return self.failure_url
+        raise ImproperlyConfigured("No URL to redirect to. Provide a failure_url.")
+
+
+class ProtectedObjectMixin:
+    """Show flask message in case if ProtectedError was risen"""
+    failure_url = None
+    protected_failure_message = ""
+
+    def dispatch(self, request: HttpRequest, *args, **kwargs):
+        try:
+            return super().dispatch(request, *args, **kwargs)
+        except deletion.ProtectedError:
+            if self.protected_failure_message:
+                messages.error(request, self.protected_failure_message)
+            failure_url = self.get_failure_url()
+            return redirect(failure_url)
 
     def get_failure_url(self):
         if self.failure_url:
