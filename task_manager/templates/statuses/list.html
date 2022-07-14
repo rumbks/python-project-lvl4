@@ -1,33 +1,28 @@
-{% extends 'index.html' %}
+{% extends 'basic/items_list.html' %}
 {% load i18n %}
 
 {% block header %}
 {% translate "Statuses" %}
 {% endblock %}
-{% block body %}
+{% block create_item %}
 <a class="nav-link" href="{% url "statuses:create" %}">{% translate "Create status" %}</a>
-<table class="table table-stripped">
-    <thead>
-        <tr>
-          <th>ID</th>
-          <th>{% translate "Name" %}</th>
-          <th>{% translate "Creation date" %}</th>
-          <th></th>
-        </tr>
-    </thead>
-    <tbody>
-    {% for status in status_list %}
-      <tr>
+{% endblock %}
+{% block table_header %}
+<th>ID</th>
+<th>{% translate "Name" %}</th>
+<th>{% translate "Creation date" %}</th>
+{% endblock %}
+{% block table_body %}
+{% for status in status_list %}
+    <tr>
         <td>{{ status.id }}</td>
         <td>{{ status.name }}</td>
         <td>{{ status.date_created|date:"d.m.Y H:i" }}</td>
         <td>
-          <a href="{% url "statuses:update" status.id %}">{% translate "Update" %}</a>
-          <br>
-          <a href="{% url "statuses:delete" status.id %}">{% translate "Delete" %}</a>
+            <a href="{% url "statuses:update" status.id %}">{% translate "Update" %}</a>
+            <br>
+            <a href="{% url "statuses:delete" status.id %}">{% translate "Delete" %}</a>
         </td>
-      </tr>
-    {% endfor %}
-  </tbody>
-</table>
+    </tr>
+{% endfor %}
 {% endblock %}

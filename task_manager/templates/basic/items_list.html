@@ -1,0 +1,17 @@
+{% extends 'basic/page.html' %}
+{% load i18n %}
+
+{% block body %}
+{% block create_item %}{% endblock %}
+<table class="table table-stripped">
+    <thead>
+        <tr>
+          {% block table_header %}{% endblock %}
+          <th></th>
+        </tr>
+    </thead>
+    <tbody>
+    {% block table_body %}{% endblock %}
+  </tbody>
+</table>
+{% endblock %}
