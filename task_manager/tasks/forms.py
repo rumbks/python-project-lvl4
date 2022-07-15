@@ -17,18 +17,21 @@ class TaskForm(forms.ModelForm):
             'description',
             'status',
             'assignee',
+            'labels',
         ]
         localized_fields = [
             'name',
             'description',
             'status',
             'assignee',
+            'labels',
         ]
         labels = {
             'name': _('Name'),
             'description': _('Description'),
             'status': _('Status'),
             'assignee': _('Assignee'),
+            'labels': _('Labels'),
         }
         widgets = {
             'description': forms.Textarea(attrs={'cols': 40, 'rows': 10}),

@@ -1,0 +1,28 @@
+{% extends 'basic/items_list.html' %}
+{% load i18n %}
+
+{% block header %}
+{% translate "Labels" %}
+{% endblock %}
+{% block create_item %}
+<a class="nav-link" href="{% url "labels:create" %}">{% translate "Create label" %}</a>
+{% endblock %}
+{% block table_header %}
+<th>ID</th>
+<th>{% translate "Name" %}</th>
+<th>{% translate "Creation date" %}</th>
+{% endblock %}
+{% block table_body %}
+{% for label in label_list %}
+    <tr>
+        <td>{{ label.id }}</td>
+        <td>{{ label.name }}</td>
+        <td>{{ label.date_created|date:"d.m.Y H:i" }}</td>
+        <td>
+            <a href="{% url "labels:update" label.id %}">{% translate "Update" %}</a>
+            <br>
+            <a href="{% url "labels:delete" label.id %}">{% translate "Delete" %}</a>
+        </td>
+    </tr>
+{% endfor %}
+{% endblock %}
