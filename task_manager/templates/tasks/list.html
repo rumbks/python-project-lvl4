@@ -1,11 +1,27 @@
 {% extends 'basic/items_list.html' %}
 {% load i18n %}
+{% load bootstrap4 %}
 
 {% block header %}
 {% translate "Tasks" %}
 {% endblock %}
 {% block create_item %}
 <a class="nav-link" href="{% url "tasks:create" %}">{% translate "Create task" %}</a>
+{% endblock %}
+{% block filter_form %}
+<div class="card mb-3">
+  <div class="card-body bg-light">
+      <form class="form-inline center" method="get">
+          {% bootstrap_field filter.form.status field_class="ml-3 mr-3"%}
+          {% bootstrap_field filter.form.assignee field_class="ml-3 mr-3"%}
+          {% bootstrap_field filter.form.label field_class="ml-3 mr-3"%}
+          {% bootstrap_field filter.form.is_mine field_class="mr-3"%}
+          {% buttons %}
+              <input class="btn btn-primary" type="submit" value="{% translate "Show" %}">
+          {% endbuttons %}
+      </form>
+  </div>
+</div>
 {% endblock %}
 {% block table_header %}
 <th>ID</th>
@@ -16,7 +32,7 @@
 <th>{% translate "Creation date" %}</th>
 {% endblock %}
 {% block table_body %}
-{% for task in task_list %}
+{% for task in filter.qs %}
     <tr>
         <td>{{ task.id }}</td>
         <td>

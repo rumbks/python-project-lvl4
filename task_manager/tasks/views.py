@@ -1,6 +1,5 @@
 from django.contrib.auth.views import get_user_model
 from django.views.generic import (
-    ListView,
     CreateView,
     UpdateView,
     DeleteView,
@@ -9,15 +8,19 @@ from django.views.generic import (
 from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
 from django.contrib.messages.views import SuccessMessageMixin
+from django_filters.views import FilterView
 
 from task_manager.mixins import LoginRequiredMixin, OwnershipRequiredMixin
+from task_manager.tasks.filters import TaskFilter
 from task_manager.tasks.forms import TaskForm
 from task_manager.tasks.models import Task
 
 
-class ListTasks(LoginRequiredMixin, ListView):
+class ListTasks(LoginRequiredMixin, FilterView):
     model = Task
+    filterset_class = TaskFilter
     template_name = 'tasks/list.html'
+    queryset = Task.objects.all()
 
 
 class CreateTask(LoginRequiredMixin, SuccessMessageMixin, CreateView):
