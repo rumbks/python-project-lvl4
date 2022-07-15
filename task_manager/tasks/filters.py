@@ -1,12 +1,20 @@
 from django.utils.translation import gettext_lazy as _
 from django import forms
 import django_filters
+from django.contrib.auth import get_user_model
 
 from task_manager.labels.models import Label
+from task_manager.statuses.models import Status
 from task_manager.tasks.models import Task
 
 
 class TaskFilter(django_filters.FilterSet):
+    status = django_filters.ModelChoiceFilter(
+        queryset=Status.objects.all(), label=_("Status")
+    )
+    assignee = django_filters.ModelChoiceFilter(
+        queryset=get_user_model().objects.all(), label=_("Assignee")
+    )
     label = django_filters.ModelChoiceFilter(
         field_name='labels',
         label=_("Label"),
