@@ -1,6 +1,5 @@
 import pytest
 from django.urls import reverse_lazy
-from django.contrib.auth import get_user_model
 
 from task_manager.statuses.models import Status
 

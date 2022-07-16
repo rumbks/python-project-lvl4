@@ -1,4 +1,3 @@
-from django.contrib.auth.views import get_user_model
 from django.views.generic import (
     CreateView,
     UpdateView,
@@ -19,14 +18,14 @@ from task_manager.tasks.models import Task
 class ListTasks(LoginRequiredMixin, FilterView):
     model = Task
     filterset_class = TaskFilter
-    template_name = 'tasks/list.html'
+    template_name = "tasks/list.html"
     queryset = Task.objects.all()
 
 
 class CreateTask(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     def get_form_kwargs(self):
         kwargs = super().get_form_kwargs()
-        kwargs['logged_in_user'] = self.request.user
+        kwargs["logged_in_user"] = self.request.user
         return kwargs
 
     def form_valid(self, form):
@@ -37,9 +36,9 @@ class CreateTask(LoginRequiredMixin, SuccessMessageMixin, CreateView):
         return super().form_valid(form)
 
     model = Task
-    template_name = 'tasks/create.html'
+    template_name = "tasks/create.html"
     form_class = TaskForm
-    success_url = reverse_lazy('tasks:list')
+    success_url = reverse_lazy("tasks:list")
     success_message = _("Task was successfully created")
 
 
@@ -48,9 +47,9 @@ class UpdateTask(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
         return super().post(request, *args, **kwargs)
 
     model = Task
-    template_name = 'tasks/update.html'
+    template_name = "tasks/update.html"
     form_class = TaskForm
-    success_url = reverse_lazy('tasks:list')
+    success_url = reverse_lazy("tasks:list")
     success_message = _("Task was successfully updated")
 
 
@@ -58,14 +57,14 @@ class DeleteTask(
     LoginRequiredMixin, OwnershipRequiredMixin, SuccessMessageMixin, DeleteView
 ):
     model = Task
-    model_user_id_field_name = 'author_id'
-    template_name = 'tasks/delete.html'
-    success_url = reverse_lazy('tasks:list')
+    model_user_id_field_name = "author_id"
+    template_name = "tasks/delete.html"
+    success_url = reverse_lazy("tasks:list")
     success_message = _("Task was successfully deleted")
-    failure_url = reverse_lazy('tasks:list')
+    failure_url = reverse_lazy("tasks:list")
     failure_message = _("Task can be deleted by it's author only")
 
 
 class TaskDetails(LoginRequiredMixin, DetailView):
     model = Task
-    template_name = 'tasks/details.html'
+    template_name = "tasks/details.html"

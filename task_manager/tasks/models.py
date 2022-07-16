@@ -20,9 +20,9 @@ class Task(models.Model):
         on_delete=models.PROTECT,
         blank=True,
         null=True,
-        related_name='tasks_assigned_set',
+        related_name="tasks_assigned_set",
     )
-    labels = models.ManyToManyField(Label, through='TaskToLabel', blank=True)
+    labels = models.ManyToManyField(Label, through="TaskToLabel", blank=True)
     date_created = models.DateTimeField(default=timezone.now)
 
 

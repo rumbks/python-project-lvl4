@@ -16,13 +16,13 @@ class TaskFilter(django_filters.FilterSet):
         queryset=get_user_model().objects.all(), label=_("Assignee")
     )
     label = django_filters.ModelChoiceFilter(
-        field_name='labels',
+        field_name="labels",
         label=_("Label"),
         queryset=Label.objects.all(),
     )
     is_mine = django_filters.BooleanFilter(
-        label=_('My tasks only'),
-        method='filter_is_mine',
+        label=_("My tasks only"),
+        method="filter_is_mine",
         widget=forms.CheckboxInput(),
     )
 
@@ -34,4 +34,4 @@ class TaskFilter(django_filters.FilterSet):
 
     class Meta:
         model = Task
-        fields = ['status', 'assignee']
+        fields = ["status", "assignee"]

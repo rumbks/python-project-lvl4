@@ -7,26 +7,44 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('labels', '0001_initial'),
-        ('tasks', '0002_alter_task_assignee_alter_task_author_and_more'),
+        ("labels", "0001_initial"),
+        ("tasks", "0002_alter_task_assignee_alter_task_author_and_more"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='TaskToLabel',
+            name="TaskToLabel",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('label', models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, to='labels.label')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "label",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.PROTECT,
+                        to="labels.label"
+                    ),
+                ),
             ],
         ),
         migrations.AddField(
-            model_name='task',
-            name='labels',
-            field=models.ManyToManyField(blank=True, through='tasks.TaskToLabel', to='labels.label'),
+            model_name="task",
+            name="labels",
+            field=models.ManyToManyField(
+                blank=True, through="tasks.TaskToLabel", to="labels.label"
+            ),
         ),
         migrations.AddField(
-            model_name='tasktolabel',
-            name='task',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='tasks.task'),
+            model_name="tasktolabel",
+            name="task",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE, to="tasks.task"
+            ),
         ),
     ]

@@ -8,11 +8,11 @@ class StatusForm(forms.ModelForm):
     class Meta:
         model = Status
         fields = [
-            'name',
+            "name",
         ]
         localized_fields = [
-            'name',
+            "name",
         ]
         labels = {
-            'name': _('Name'),
+            "name": _("Name"),
         }

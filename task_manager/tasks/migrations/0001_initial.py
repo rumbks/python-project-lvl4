@@ -11,21 +11,54 @@ class Migration(migrations.Migration):
     initial = True
 
     dependencies = [
-        ('statuses', '0001_initial'),
+        ("statuses", "0001_initial"),
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='Task',
+            name="Task",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=150, unique=True)),
-                ('description', models.CharField(blank=True, max_length=1000)),
-                ('date_created', models.DateTimeField(default=django.utils.timezone.now)),
-                ('assignee', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.RESTRICT, related_name='tasks_assigned_set', to=settings.AUTH_USER_MODEL)),
-                ('author', models.ForeignKey(on_delete=django.db.models.deletion.RESTRICT, related_name='tasks_created_set', to=settings.AUTH_USER_MODEL)),
-                ('status', models.ForeignKey(on_delete=django.db.models.deletion.RESTRICT, to='statuses.status')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("name", models.CharField(max_length=150, unique=True)),
+                ("description", models.CharField(blank=True, max_length=1000)),
+                (
+                    "date_created",
+                    models.DateTimeField(default=django.utils.timezone.now),
+                ),
+                (
+                    "assignee",
+                    models.ForeignKey(
+                        blank=True,
+                        null=True,
+                        on_delete=django.db.models.deletion.RESTRICT,
+                        related_name="tasks_assigned_set",
+                        to=settings.AUTH_USER_MODEL,
+                    ),
+                ),
+                (
+                    "author",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.RESTRICT,
+                        related_name="tasks_created_set",
+                        to=settings.AUTH_USER_MODEL,
+                    ),
+                ),
+                (
+                    "status",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.RESTRICT,
+                        to="statuses.status",
+                    ),
+                ),
             ],
         ),
     ]

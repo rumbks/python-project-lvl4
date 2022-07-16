@@ -10,34 +10,35 @@ class UserForm(forms.ModelForm):
     password1 = forms.CharField(
         label=_("Password"),
         widget=forms.PasswordInput(),
-        help_text=_('Your password should be at least 3 symbols long.')
+        help_text=_("Your password should be at least 3 symbols long."),
     )
     password2 = forms.CharField(
         label=_("Confirm password"),
         widget=forms.PasswordInput(),
-        help_text=_('Re-enter your password again, please.'),
+        help_text=_("Re-enter your password again, please."),
     )
 
     class Meta:
         model = get_user_model()
         fields = [
-            'first_name',
-            'last_name',
-            'username',
+            "first_name",
+            "last_name",
+            "username",
         ]
         localized_fields = [
-            'first_name',
-            'last_name',
-            'username',
+            "first_name",
+            "last_name",
+            "username",
         ]
         labels = {
-            'first_name': _('First name'),
-            'last_name': _('Last name'),
-            'username': _('Username'),
+            "first_name": _("First name"),
+            "last_name": _("Last name"),
+            "username": _("Username"),
         }
         help_texts = {
-            'username': _(
-                'Required. Char limit 150. Allowed symbols are letters, digits and @/./+/-/_.'
+            "username": _(
+                "Required. Char limit 150. Allowed symbols "
+                "are letters, digits and @/./+/-/_."
             ),
         }
 
@@ -53,7 +54,7 @@ class UserForm(forms.ModelForm):
 
     def save(self, commit=True):
         user = super().save(commit=False)
-        user.set_password(self.cleaned_data['password2'])
+        user.set_password(self.cleaned_data["password2"])
         if commit:
             user.save()
         return user

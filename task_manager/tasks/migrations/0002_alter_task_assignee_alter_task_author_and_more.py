@@ -8,25 +8,38 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('statuses', '0001_initial'),
+        ("statuses", "0001_initial"),
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
-        ('tasks', '0001_initial'),
+        ("tasks", "0001_initial"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='task',
-            name='assignee',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.PROTECT, related_name='tasks_assigned_set', to=settings.AUTH_USER_MODEL),
+            model_name="task",
+            name="assignee",
+            field=models.ForeignKey(
+                blank=True,
+                null=True,
+                on_delete=django.db.models.deletion.PROTECT,
+                related_name="tasks_assigned_set",
+                to=settings.AUTH_USER_MODEL,
+            ),
         ),
         migrations.AlterField(
-            model_name='task',
-            name='author',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, related_name='tasks_created_set', to=settings.AUTH_USER_MODEL),
+            model_name="task",
+            name="author",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.PROTECT,
+                related_name="tasks_created_set",
+                to=settings.AUTH_USER_MODEL,
+            ),
         ),
         migrations.AlterField(
-            model_name='task',
-            name='status',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, to='statuses.status'),
+            model_name="task",
+            name="status",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.PROTECT,
+                to="statuses.status"
+            ),
         ),
     ]
