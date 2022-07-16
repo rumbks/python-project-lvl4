@@ -88,7 +88,7 @@ WSGI_APPLICATION = "task_manager.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
-DATABASES = {"default": dj_database_url.parse(env("DATABASE_URL"))}
+DATABASES = {"default": dj_database_url.parse(env("DATABASE_URL", f"sqlite:///{BASE_DIR/'db.sqlite3'}"))}
 
 
 # Password validation

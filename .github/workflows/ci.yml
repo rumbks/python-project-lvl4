@@ -23,6 +23,9 @@ jobs:
         run: |
           pip install poetry
           make install
+      - name: Apply db migrations
+        run: |
+          make migrate
       - name: Run linter
         run: |
           make lint
