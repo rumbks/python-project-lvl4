@@ -1,3 +1,6 @@
+install:
+	poetry install
+
 runserver:
 	poetry run python manage.py runserver
 
@@ -12,3 +15,14 @@ make_migrations:
 
 migrate:
 	poetry run python manage.py migrate
+
+tests:
+	poetry run pytest -vv tests
+
+test-coverage:
+	poetry run pytest --cov=task_manager --cov-report xml
+
+lint:
+	poetry run flake8 .
+
+.PHONY: tests
