@@ -4,6 +4,9 @@ on:
   - push
   - pull_request
 
+env:
+  DJANGO_SECRET_KEY: 'secret'
+
 jobs:
   build:
     runs-on: ubuntu-latest

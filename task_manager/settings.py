@@ -141,10 +141,11 @@ django_heroku.settings(locals(), databases=False)
 
 LOGIN_URL = reverse_lazy("login")
 
-ROLLBAR = {
-    "access_token": env("ROLLBAR_ACCESS_TOKEN"),
-    "environment": "development" if DEBUG else "production",
-    "root": BASE_DIR,
-}
+if env("ROLLBAR_ACCESS_TOKEN", False):
+    ROLLBAR = {
+        "access_token": env("ROLLBAR_ACCESS_TOKEN"),
+        "environment": "development" if DEBUG else "production",
+        "root": BASE_DIR,
+    }
 
-rollbar.init(**ROLLBAR)
+    rollbar.init(**ROLLBAR)
