@@ -12,7 +12,7 @@ class TaskFilter(django_filters.FilterSet):
     status = django_filters.ModelChoiceFilter(
         queryset=Status.objects.all(), label=_("Status")
     )
-    assignee = django_filters.ModelChoiceFilter(
+    executor = django_filters.ModelChoiceFilter(
         queryset=get_user_model().objects.all(), label=_("Assignee")
     )
     label = django_filters.ModelChoiceFilter(
@@ -34,4 +34,4 @@ class TaskFilter(django_filters.FilterSet):
 
     class Meta:
         model = Task
-        fields = ["status", "assignee"]
+        fields = ["status", "executor"]

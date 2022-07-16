@@ -15,21 +15,21 @@ class TaskForm(forms.ModelForm):
             "name",
             "description",
             "status",
-            "assignee",
+            "executor",
             "labels",
         ]
         localized_fields = [
             "name",
             "description",
             "status",
-            "assignee",
+            "executor",
             "labels",
         ]
         labels = {
             "name": _("Name"),
             "description": _("Description"),
             "status": _("Status"),
-            "assignee": _("Assignee"),
+            "executor": _("Assignee"),
             "labels": _("Labels"),
         }
         widgets = {

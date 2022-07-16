@@ -39,7 +39,7 @@ def prepare_object(status, user):
     def prepare(task):
         task.status = status
         task.author = user
-        task.assignee = user
+        task.executor = user
 
     return prepare
 
