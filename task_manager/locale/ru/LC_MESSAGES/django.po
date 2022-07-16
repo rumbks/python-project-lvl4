@@ -85,7 +85,7 @@ msgstr "Только свои задачи"
 
 #: task_manager/tasks/forms.py:30
 msgid "Description"
-msgstr "Oписание"
+msgstr "Описание"
 
 #: task_manager/tasks/forms.py:33 task_manager/templates/basic/page.html:31
 #: task_manager/templates/labels/list.html:5
