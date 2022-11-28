@@ -15,6 +15,7 @@ def stringify_user(self):
 User.__str__ = stringify_user
 
 
+
 class Task(models.Model):
     name = models.CharField(unique=True, max_length=150)
     description = models.CharField(max_length=1000, blank=True)

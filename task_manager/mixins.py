@@ -1,5 +1,5 @@
 from django.core.exceptions import ImproperlyConfigured
-from django.contrib.auth.mixins import AccessMixin
+from django.contrib.auth.mixins import AccessMixin, UserPassesTestMixin
 from django.contrib import messages
 from django.utils.translation import gettext_lazy as _
 from django.http import HttpRequest
