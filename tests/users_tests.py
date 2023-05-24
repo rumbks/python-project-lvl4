@@ -21,6 +21,10 @@ def prepare_object():
         user.set_password(PASSWORD)
     return prepare
 
+@pytest.fixture
+def fill_created_object():
+    return None
+
 
 @pytest.mark.django_db
 def test_create(client, model, input_data):

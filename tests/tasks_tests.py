@@ -1,8 +1,9 @@
 import pytest
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, reverse
 from django.contrib.auth import get_user_model
 
 from task_manager.statuses.models import Status
+from task_manager.labels.models import Label
 from task_manager.tasks.models import Task
 from tests import users_tests
 
@@ -11,6 +12,7 @@ CREATE_URL = reverse_lazy('tasks:create')
 UPDATE_URL = '/tasks/{id}/update/'
 DELETE_URL = '/tasks/{id}/delete/'
 STATUS_NAME = 'status'
+LABEL_NAME = 'label'
 INPUT_DATA = dict(name='name', description='description')
 User = get_user_model()
 
@@ -23,6 +25,11 @@ def model():
 @pytest.fixture
 def status():
     return Status.objects.create(name=STATUS_NAME)
+
+
+@pytest.fixture
+def label():
+    return Label.objects.create(name=STATUS_NAME)
 
 
 @pytest.fixture
@@ -44,6 +51,13 @@ def prepare_object(status, user):
     return prepare
 
 
+@pytest.fixture
+def fill_created_object(label):
+    def fill(task):
+        task.labels.set([label])
+
+    return fill
+
 @pytest.mark.usefixtures('logged_in_user')
 @pytest.mark.django_db
 def test_create(client, model, input_data, status):
@@ -60,7 +74,8 @@ def test_update(client, model, input_data, created_object, status):
     input_data['status'] = status.id
     client.post(UPDATE_URL.format(id=created_object.id), input_data)
     assert model.objects.filter(name=old_name).count() == 0
-    assert model.objects.get(name=input_data['name'])
+    updated_task = model.objects.get(name=input_data['name'])
+    assert updated_task.status == status
 
 
 @pytest.mark.usefixtures('logged_in_user')
@@ -100,3 +115,10 @@ def test_delete_without_ownership(
     assert response.status_code == 302
     retrieved_task = model.objects.get(id=created_object.id)
     assert retrieved_task == created_object
+
+
+@pytest.mark.django_db
+def test_delete_linked_label(client, label):
+    response = client.post(reverse('labels:delete', kwargs={'pk': label.id}))
+    assert response.status_code == 302
+    assert Label.objects.get(id=label.id)

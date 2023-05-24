@@ -11,13 +11,15 @@ def input_data(request):
 
 
 @pytest.fixture
-def create_object(prepare_object, model, input_data):
+def create_object(prepare_object, fill_created_object, model, input_data):
     def create(**kwargs):
         input_data.update(kwargs)
         object_ = model(**input_data)
         if prepare_object is not None:
             prepare_object(object_)
         object_.save()
+        if fill_created_object is not None:
+            fill_created_object(object_)
         return object_
     return create
 
