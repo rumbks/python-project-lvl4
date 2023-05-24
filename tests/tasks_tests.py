@@ -6,6 +6,7 @@ from task_manager.statuses.models import Status
 from task_manager.labels.models import Label
 from task_manager.tasks.models import Task
 from tests import users_tests
+from tests.assert_ import redirects_to_login, redirects_to
 
 STATUS_CODE_REDIRECT = 302
 CREATE_URL = reverse_lazy('tasks:create')
@@ -93,7 +94,7 @@ def test_delete(client, model, created_object):
 )
 @pytest.mark.django_db
 def test_change_unauthorized(
-    client, model, created_object, url, params, input_data, redirects_to_login
+    client, model, created_object, url, params, input_data
 ):
     body_params = {**input_data, **params} if params else {}
     response = client.post(url.format(id=created_object.id), body_params)
@@ -105,7 +106,7 @@ def test_change_unauthorized(
 @pytest.mark.usefixtures('authorized')
 @pytest.mark.django_db
 def test_delete_without_ownership(
-    client, model, created_object, other_user, redirects_to
+    client, model, created_object, other_user
 ):
     created_object.author = other_user
     created_object.save()
@@ -119,7 +120,7 @@ def test_delete_without_ownership(
 
 @pytest.mark.usefixtures('authorized')
 @pytest.mark.django_db
-def test_delete_linked_label(client, created_object, label, redirects_to):
+def test_delete_linked_label(client, created_object, label):
     response = client.post(reverse('labels:delete', kwargs={'pk': label.id}))
     assert redirects_to(response, reverse('labels:list'))
     assert Label.objects.get(id=label.id)

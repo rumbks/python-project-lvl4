@@ -2,6 +2,7 @@ import pytest
 from django.urls import reverse_lazy, reverse
 from django.contrib.auth import get_user_model
 
+from tests.assert_ import redirects_to_login, redirects_to
 from tests.constants import USER_DATA, USER_PASSWORD
 
 CREATE_URL = reverse_lazy('users:create')
@@ -63,7 +64,7 @@ def test_delete_self(client, model, logged_in_user):
 )
 @pytest.mark.django_db
 def test_change_unauthorized(
-    client, model, created_object, url, params, input_data, redirects_to_login
+    client, model, created_object, url, params, input_data
 ):
     body_params = (
         {**input_data, **params, 'password1': USER_PASSWORD, 'password2': USER_PASSWORD}
@@ -83,7 +84,7 @@ def test_change_unauthorized(
 )
 @pytest.mark.django_db
 def test_change_other(
-    client, model, create_object, input_data, url, params, redirects_to
+    client, model, create_object, input_data, url, params
 ):
     other_user = create_object(username='other')
     body_params = (

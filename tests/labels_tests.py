@@ -2,6 +2,7 @@ import pytest
 from django.urls import reverse_lazy
 
 from task_manager.labels.models import Label
+from tests.assert_ import redirects_to_login
 
 CREATE_URL = reverse_lazy('labels:create')
 UPDATE_URL = '/labels/{id}/update/'
@@ -53,7 +54,7 @@ def test_delete(client, model, created_object):
 )
 @pytest.mark.django_db
 def test_change_unauthorized(
-    client, model, created_object, url, params, input_data, redirects_to_login
+    client, model, created_object, url, params, input_data
 ):
     body_params = (
         {**input_data, **params}
