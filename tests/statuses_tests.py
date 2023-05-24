@@ -28,7 +28,7 @@ def test_create(client, model, input_data):
     assert model.objects.get(name=input_data['name'])
 
 
-@pytest.mark.usefixtures('logged_in_user')
+@pytest.mark.usefixtures('authorized')
 @pytest.mark.django_db
 def test_update(client, model, input_data, created_object):
     old_name = created_object.name
@@ -38,7 +38,7 @@ def test_update(client, model, input_data, created_object):
     assert model.objects.get(name=input_data['name'])
 
 
-@pytest.mark.usefixtures('logged_in_user')
+@pytest.mark.usefixtures('authorized')
 @pytest.mark.django_db
 def test_delete(client, model, created_object):
     client.post(

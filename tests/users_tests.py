@@ -75,7 +75,7 @@ def test_change_unauthorized(
     assert retrieved_user == created_object
 
 
-@pytest.mark.usefixtures('logged_in_user')
+@pytest.mark.usefixtures('authorized')
 @pytest.mark.parametrize(
     ('url', 'params'),
     [(UPDATE_URL, {'username': 'other'}), (DELETE_URL, {})],

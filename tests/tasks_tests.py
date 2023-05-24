@@ -58,7 +58,7 @@ def fill_created_object(label):
 
     return fill
 
-@pytest.mark.usefixtures('logged_in_user')
+@pytest.mark.usefixtures('authorized')
 @pytest.mark.django_db
 def test_create(client, model, input_data, status):
     body_params = {**input_data, 'status': status.id}
@@ -66,7 +66,7 @@ def test_create(client, model, input_data, status):
     assert model.objects.get(name=input_data['name'])
 
 
-@pytest.mark.usefixtures('logged_in_user')
+@pytest.mark.usefixtures('authorized')
 @pytest.mark.django_db
 def test_update(client, model, input_data, created_object, status):
     old_name = created_object.name
@@ -78,7 +78,7 @@ def test_update(client, model, input_data, created_object, status):
     assert updated_task.status == status
 
 
-@pytest.mark.usefixtures('logged_in_user')
+@pytest.mark.usefixtures('authorized')
 @pytest.mark.django_db
 def test_delete(client, model, created_object):
     client.post(
@@ -102,7 +102,7 @@ def test_change_unauthorized(
     assert retrieved_task == created_object
 
 
-@pytest.mark.usefixtures('logged_in_user')
+@pytest.mark.usefixtures('authorized')
 @pytest.mark.django_db
 def test_delete_without_ownership(
     client, model, created_object, other_user, redirects_to
@@ -117,7 +117,7 @@ def test_delete_without_ownership(
     assert retrieved_task == created_object
 
 
-@pytest.mark.usefixtures('logged_in_user')
+@pytest.mark.usefixtures('authorized')
 @pytest.mark.django_db
 def test_delete_linked_label(client, created_object, label, redirects_to):
     response = client.post(reverse('labels:delete', kwargs={'pk': label.id}))

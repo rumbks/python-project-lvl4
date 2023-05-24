@@ -65,3 +65,7 @@ def user():
 def logged_in_user(client, user):
     client.login(username=user.username, password=users_tests.PASSWORD)
     return user
+
+@pytest.fixture
+def authorized(logged_in_user):
+    pass
