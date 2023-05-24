@@ -3,7 +3,6 @@ from django.urls import reverse_lazy
 
 from task_manager.statuses.models import Status
 
-STATUS_CODE_REDIRECT = 302
 CREATE_URL = reverse_lazy('statuses:create')
 UPDATE_URL = '/statuses/{id}/update/'
 DELETE_URL = '/statuses/{id}/delete/'
@@ -54,7 +53,7 @@ def test_delete(client, model, created_object):
 )
 @pytest.mark.django_db
 def test_change_unauthorized(
-    client, model, created_object, url, params, input_data
+    client, model, created_object, url, params, input_data, redirects_to_login
 ):
     body_params = (
         {**input_data, **params}
@@ -62,6 +61,6 @@ def test_change_unauthorized(
         else {}
     )
     response = client.post(url.format(id=created_object.id), body_params)
-    assert response.status_code == 302
+    assert redirects_to_login(response)
     retrieved_status = model.objects.get(id=created_object.id)
     assert retrieved_status == created_object

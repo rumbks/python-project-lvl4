@@ -1,8 +1,31 @@
 from copy import copy
+from urllib.parse import urlparse
 
 import pytest
+from django.urls import reverse
 from django.contrib.auth import get_user_model
 from tests import users_tests
+from tests.constants import HTTP_REDIRECT_STATUS_CODE
+
+
+@pytest.fixture(scope='session')
+def redirects_to():
+    def redirects_to_(response, url):
+        assert (
+            response.status_code == HTTP_REDIRECT_STATUS_CODE
+        ), f"Expected status code to be {HTTP_REDIRECT_STATUS_CODE}, but it's {response.status_code}"
+        redirected_url_path = urlparse(response.url).path
+        return redirected_url_path == url
+
+    return redirects_to_
+
+
+@pytest.fixture(scope='session')
+def redirects_to_login(redirects_to):
+    def redirects_(response):
+        return redirects_to(response, reverse('login'))
+
+    return redirects_
 
 
 @pytest.fixture

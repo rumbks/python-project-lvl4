@@ -1,8 +1,7 @@
 import pytest
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, reverse
 from django.contrib.auth import get_user_model
 
-STATUS_CODE_REDIRECT = 302
 CREATE_URL = reverse_lazy('users:create')
 UPDATE_URL = '/users/{id}/update/'
 DELETE_URL = '/users/{id}/delete/'
@@ -63,7 +62,7 @@ def test_delete_self(client, model, logged_in_user):
 )
 @pytest.mark.django_db
 def test_change_unauthorized(
-    client, model, created_object, url, params, input_data
+    client, model, created_object, url, params, input_data, redirects_to_login
 ):
     body_params = (
         {**input_data, **params, 'password1': PASSWORD, 'password2': PASSWORD}
@@ -71,7 +70,7 @@ def test_change_unauthorized(
         else {}
     )
     response = client.post(url.format(id=created_object.id), body_params)
-    assert response.status_code == 302
+    assert redirects_to_login(response)
     retrieved_user = model.objects.get(id=created_object.id)
     assert retrieved_user == created_object
 
@@ -83,7 +82,7 @@ def test_change_unauthorized(
 )
 @pytest.mark.django_db
 def test_change_other(
-    client, model, create_object, input_data, url, params
+    client, model, create_object, input_data, url, params, redirects_to
 ):
     other_user = create_object(username='other')
     body_params = (
@@ -95,6 +94,6 @@ def test_change_other(
         url.format(id=other_user.id),
         body_params
     )
-    assert response.status_code == 302
+    assert redirects_to(response, reverse('users:list'))
     retrieved_user = model.objects.get(id=other_user.id)
     assert retrieved_user == other_user

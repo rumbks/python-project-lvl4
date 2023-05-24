@@ -93,11 +93,11 @@ def test_delete(client, model, created_object):
 )
 @pytest.mark.django_db
 def test_change_unauthorized(
-    client, model, created_object, url, params, input_data
+    client, model, created_object, url, params, input_data, redirects_to_login
 ):
     body_params = {**input_data, **params} if params else {}
     response = client.post(url.format(id=created_object.id), body_params)
-    assert response.status_code == 302
+    assert redirects_to_login(response)
     retrieved_task = model.objects.get(id=created_object.id)
     assert retrieved_task == created_object
 
@@ -105,20 +105,21 @@ def test_change_unauthorized(
 @pytest.mark.usefixtures('logged_in_user')
 @pytest.mark.django_db
 def test_delete_without_ownership(
-    client, model, created_object, other_user
+    client, model, created_object, other_user, redirects_to
 ):
     created_object.author = other_user
     created_object.save()
     response = client.post(
         DELETE_URL.format(id=created_object.id),
     )
-    assert response.status_code == 302
+    assert redirects_to(response, reverse('tasks:list'))
     retrieved_task = model.objects.get(id=created_object.id)
     assert retrieved_task == created_object
 
 
+@pytest.mark.usefixtures('logged_in_user')
 @pytest.mark.django_db
-def test_delete_linked_label(client, label):
+def test_delete_linked_label(client, created_object, label, redirects_to):
     response = client.post(reverse('labels:delete', kwargs={'pk': label.id}))
-    assert response.status_code == 302
+    assert redirects_to(response, reverse('labels:list'))
     assert Label.objects.get(id=label.id)
