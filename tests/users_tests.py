@@ -2,11 +2,12 @@ import pytest
 from django.urls import reverse_lazy, reverse
 from django.contrib.auth import get_user_model
 
+from tests.constants import USER_DATA, USER_PASSWORD
+
 CREATE_URL = reverse_lazy('users:create')
 UPDATE_URL = '/users/{id}/update/'
 DELETE_URL = '/users/{id}/delete/'
-PASSWORD = 'password'
-INPUT_DATA = dict(username="jsmith", first_name='John', last_name='smith')
+INPUT_DATA = USER_DATA
 
 
 @pytest.fixture
@@ -17,7 +18,7 @@ def model():
 @pytest.fixture
 def prepare_object():
     def prepare(user):
-        user.set_password(PASSWORD)
+        user.set_password(USER_PASSWORD)
     return prepare
 
 @pytest.fixture
@@ -29,7 +30,7 @@ def fill_created_object():
 def test_create(client, model, input_data):
     client.post(
         CREATE_URL,
-        {**input_data, 'password1': PASSWORD, 'password2': PASSWORD},
+        {**input_data, 'password1': USER_PASSWORD, 'password2': USER_PASSWORD},
     )
     assert model.objects.get(username=input_data['username'])
 
@@ -40,7 +41,7 @@ def test_update_self(client, model, input_data, logged_in_user):
     input_data['username'] = 'johnsmith'
     client.post(
         UPDATE_URL.format(id=logged_in_user.id),
-        {**input_data, 'password1': PASSWORD, 'password2': PASSWORD},
+        {**input_data, 'password1': USER_PASSWORD, 'password2': USER_PASSWORD},
     )
     assert model.objects.filter(username=old_username).count() == 0
     assert model.objects.get(username=input_data['username'])
@@ -65,7 +66,7 @@ def test_change_unauthorized(
     client, model, created_object, url, params, input_data, redirects_to_login
 ):
     body_params = (
-        {**input_data, **params, 'password1': PASSWORD, 'password2': PASSWORD}
+        {**input_data, **params, 'password1': USER_PASSWORD, 'password2': USER_PASSWORD}
         if params
         else {}
     )
@@ -86,7 +87,7 @@ def test_change_other(
 ):
     other_user = create_object(username='other')
     body_params = (
-        {**input_data, **params, 'password1': PASSWORD, 'password2': PASSWORD}
+        {**input_data, **params, 'password1': USER_PASSWORD, 'password2': USER_PASSWORD}
         if params
         else {}
     )

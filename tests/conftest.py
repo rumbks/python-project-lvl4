@@ -4,7 +4,8 @@ from urllib.parse import urlparse
 import pytest
 from django.urls import reverse
 from django.contrib.auth import get_user_model
-from tests import users_tests
+
+from tests import constants
 from tests.constants import HTTP_REDIRECT_STATUS_CODE
 
 
@@ -55,15 +56,15 @@ def created_object(create_object):
 @pytest.fixture
 def user():
     user_model = get_user_model()
-    user_ = user_model(**users_tests.INPUT_DATA)
-    user_.set_password(users_tests.PASSWORD)
+    user_ = user_model(**constants.USER_DATA)
+    user_.set_password(constants.USER_PASSWORD)
     user_.save()
     return user_
 
 
 @pytest.fixture
 def logged_in_user(client, user):
-    client.login(username=user.username, password=users_tests.PASSWORD)
+    client.login(username=user.username, password=constants.USER_PASSWORD)
     return user
 
 @pytest.fixture
